@@ -1,2 +1,4 @@
 .env
 *.log
+tmp
+capybara-api.*
