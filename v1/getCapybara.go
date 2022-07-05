@@ -27,18 +27,18 @@ func GetCapybara(c *fiber.Ctx) error {
 		})
 
 		if err != nil {
-			return c.JSON(Response{
+			return c.Status(500).JSON(Response{
 				Success: false,
-				Message: err.Error(),
+				Message: "An internal server error occurred",
 			})
 		}
 
 		marshalledPhotos, err := json.Marshal(fetchedPhotos)
 
 		if err != nil {
-			return c.JSON(Response{
+			return c.Status(500).JSON(Response{
 				Success: false,
-				Message: "An error occurred",
+				Message: "An internal server error occurred",
 			})
 		}
 
@@ -60,16 +60,16 @@ func GetCapybara(c *fiber.Ctx) error {
 	bytes, err := downloadFile((*randomCapys.Results)[randomIndex].Urls.Regular.String())
 
 	if err != nil {
-		return c.JSON(Response{
+		return c.Status(500).JSON(Response{
 			Success: false,
-			Message: err.Error(),
+			Message: "An internal server error occurred",
 		})
 	}
 
 	body, err := ioutil.ReadAll(bytes)
 
 	if err != nil {
-		return c.SendString("An error occurred")
+		return c.Status(500).SendString("An internal server error occurred")
 	}
 
 	return c.Send(body)

@@ -24,7 +24,7 @@ func GetCapybaras(c *fiber.Ctx) error {
 
 	parsedTake, err := strconv.Atoi(take)
 	if err != nil {
-		return c.JSON(Response{
+		return c.Status(500).JSON(Response{
 			Success: false,
 			Message: err.Error(),
 		})
@@ -35,7 +35,7 @@ func GetCapybaras(c *fiber.Ctx) error {
 	parsedPage, err := strconv.Atoi(page)
 
 	if err != nil {
-		return c.JSON(Response{
+		return c.Status(500).JSON(Response{
 			Success: false,
 			Message: err.Error(),
 		})
@@ -52,18 +52,18 @@ func GetCapybaras(c *fiber.Ctx) error {
 		})
 
 		if err != nil {
-			return c.JSON(Response{
+			return c.Status(500).JSON(Response{
 				Success: false,
-				Message: err.Error(),
+				Message: "An internal server error occurred",
 			})
 		}
 
 		marshalledPhotos, err := json.Marshal(fetchedPhotos)
 
 		if err != nil {
-			return c.JSON(Response{
+			return c.Status(500).JSON(Response{
 				Success: false,
-				Message: err.Error(),
+				Message: "An internal server error occurred",
 			})
 		}
 
