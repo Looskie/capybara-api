@@ -1,51 +1,52 @@
 package v1
 
 import (
-	"context"
+	"encoding/json"
 	"math/rand"
-	"os"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/kosa3/pexels-go"
+	splash "github.com/hbagdi/go-unsplash/unsplash"
+	"github.com/looskie/capybara-api/utils"
 )
 
 func GetCapybara(c *fiber.Ctx) error {
-	cli := pexels.NewClient(os.Getenv("API_TOKEN"))
-	ctx := context.Background()
+	var unsplash = utils.Unsplash()
 
-	min := 1
-	max := 10
-
-	page := rand.Intn(max-min) + min
-
-	ps, err := cli.PhotoService.Search(ctx, &pexels.PhotoParams{
-		Query:   "capybara",
-		Page:    page,
-		PerPage: 30,
-	})
+	var randomCapys *splash.PhotoSearchResult
+	stringedPhotos, err := utils.RedisGet("random")
 
 	if err != nil {
-		return c.JSON(Response{
-			Success: false,
-			Message: err.Error(),
+		fetchedPhotos, _, err := unsplash.Search.Photos(&splash.SearchOpt{
+			Query:   "capybara",
+			PerPage: 200,
 		})
+
+		if err != nil {
+			return c.JSON(Response{
+				Success: false,
+				Message: err.Error(),
+			})
+		}
+
+		marshalledPhotos, err := json.Marshal(fetchedPhotos)
+
+		if err != nil {
+			return c.JSON(Response{
+				Success: false,
+				Message: "An error occurred",
+			})
+		}
+
+		utils.RedisSet("random", string(marshalledPhotos), 2)
+		randomCapys = fetchedPhotos
+	} else {
+		json.Unmarshal([]byte(stringedPhotos), &randomCapys)
 	}
 
-	if len(ps.Photos) == 0 {
-		return c.JSON(Response{
-			Success: true,
-			Message: "An error occurred :(",
-		})
-	}
-
-	index := rand.Intn(len(ps.Photos))
-
-	println(index)
-
-	var randomCapy = ps.Photos[index]
+	randomIndex := rand.Intn(len(*randomCapys.Results))
 
 	return c.JSON(Response{
 		Success: true,
-		Data:    randomCapy,
+		Data:    (*randomCapys.Results)[randomIndex],
 	})
 }

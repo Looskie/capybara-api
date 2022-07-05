@@ -1,21 +1,36 @@
 package v1
 
 import (
-	"context"
-	"os"
+	"encoding/json"
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/kosa3/pexels-go"
+	splash "github.com/hbagdi/go-unsplash/unsplash"
 	"github.com/looskie/capybara-api/utils"
 )
 
 func GetCapybaras(c *fiber.Ctx) error {
-	var page = c.Params("page")
+	var page = c.Query("page")
+	var take = c.Query("take")
+	var unsplash = utils.Unsplash()
 
 	if len(page) == 0 {
 		page = "1"
 	}
+
+	if len(take) == 0 {
+		take = "25"
+	}
+
+	parsedTake, err := strconv.Atoi(take)
+	if err != nil {
+		return c.JSON(Response{
+			Success: false,
+			Message: err.Error(),
+		})
+	}
+
+	println(page)
 
 	parsedPage, err := strconv.Atoi(page)
 
@@ -26,29 +41,40 @@ func GetCapybaras(c *fiber.Ctx) error {
 		})
 	}
 
-	cli := pexels.NewClient(os.Getenv("API_TOKEN"))
-	ctx := context.Background()
-
-	photos, err := utils.RedisGet(page)
+	var photos *splash.PhotoSearchResult
+	stringedPhotos, err := utils.RedisGet(page)
 
 	if err != nil {
-		
-	}
-
-	ps, err := cli.PhotoService.Search(ctx, &pexels.PhotoParams{
-		Query: "capybara",
-		Page:  parsedPage,
-	})
-
-	if err != nil {
-		return c.JSON(Response{
-			Success: false,
-			Message: err.Error(),
+		fetchedPhotos, _, err := unsplash.Search.Photos(&splash.SearchOpt{
+			Query:   "capybara",
+			Page:    parsedPage,
+			PerPage: parsedTake,
 		})
+
+		if err != nil {
+			return c.JSON(Response{
+				Success: false,
+				Message: err.Error(),
+			})
+		}
+
+		marshalledPhotos, err := json.Marshal(fetchedPhotos)
+
+		if err != nil {
+			return c.JSON(Response{
+				Success: false,
+				Message: err.Error(),
+			})
+		}
+
+		utils.RedisSet(page, string(marshalledPhotos), 7)
+		photos = fetchedPhotos
+	} else {
+		json.Unmarshal([]byte(stringedPhotos), &photos)
 	}
 
 	return c.JSON(Response{
 		Success: true,
-		Data:    ps.Photos,
+		Data:    photos,
 	})
 }

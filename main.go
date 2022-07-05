@@ -41,6 +41,10 @@ func main() {
 		utils.SetRedisDB()
 	}
 
+	if utils.Unsplash() == nil {
+		utils.SetUnsplash()
+	}
+
 	app.Use(logger.New(logger.Config{
 		Format: "${time} |   ${cyan}${status} ${reset}|   ${latency} | ${ip} on ${cyan}${ua} ${reset}| ${cyan}${method} ${reset}${path} \n",
 	}))
