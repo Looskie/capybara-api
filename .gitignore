@@ -2,3 +2,4 @@
 *.log
 tmp
 capybara-api.*
+capybara-api
