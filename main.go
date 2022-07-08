@@ -5,7 +5,6 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/joho/godotenv"
-	"github.com/looskie/capybara-api/utils"
 	v1 "github.com/looskie/capybara-api/v1"
 )
 
@@ -31,19 +30,12 @@ func main() {
 
 	v1Group.Get("/capybaras", v1.GetCapybaras)
 	v1Group.Get("/capybara", v1.GetCapybara)
+	v1Group.Get("/capybara/:index", v1.GetCapybaraByIndex)
 
 	app.Use(recover.New(recover.Config{
 		Next:             nil,
 		EnableStackTrace: true,
 	}))
-
-	if utils.GetRedisDB() == nil {
-		utils.SetRedisDB()
-	}
-
-	if utils.Unsplash() == nil {
-		utils.SetUnsplash()
-	}
 
 	app.Use(logger.New(logger.Config{
 		Format: "${time} |   ${cyan}${status} ${reset}|   ${latency} | ${ip} on ${cyan}${ua} ${reset}| ${cyan}${method} ${reset}${path} \n",
