@@ -3,3 +3,4 @@
 tmp
 capybara-api.*
 capybara-api
+.DS_Store

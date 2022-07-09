@@ -3,6 +3,7 @@ package v1
 import (
 	"fmt"
 	"image"
+	"io/ioutil"
 	"math/rand"
 	"os"
 
@@ -12,6 +13,20 @@ import (
 func GetCapybara(c *fiber.Ctx) error {
 	var wantsJSON = c.Query("json")
 	randomIndex := rand.Intn(NUMBER_OF_IMAGES)
+
+	bytes, err := ioutil.ReadFile("capys/capy" + fmt.Sprint(randomIndex) + ".jpg")
+
+	if err != nil {
+		println("error while reading capy photo", err.Error())
+		if wantsJSON == "true" {
+			return c.Status(500).JSON(Response{
+				Success: false,
+				Message: "An error occurred whilst fetching file",
+			})
+		}
+
+		return c.SendStatus(500)
+	}
 
 	if wantsJSON == "true" {
 		file, err := os.Open("./capys/capy" + fmt.Sprint(randomIndex) + ".jpg")
@@ -37,5 +52,5 @@ func GetCapybara(c *fiber.Ctx) error {
 		})
 	}
 
-	return c.SendFile("capys/capy" + fmt.Sprint(randomIndex) + ".jpg")
+	return c.Send(bytes)
 }
