@@ -26,5 +26,5 @@ jobs:
       -
         name: Build and push
         run: |-
-          docker build -t --platform=linux/amd64 registry.hop.io/capy/capy .
+          docker build --tag registry.hop.io/capy/capy . --platform=linux/amd64
           docker push registry.hop.io/capy/capy
