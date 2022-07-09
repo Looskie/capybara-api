@@ -52,5 +52,6 @@ func GetCapybara(c *fiber.Ctx) error {
 		})
 	}
 
+	c.Set("Content-Type", "image/jpeg")
 	return c.Send(bytes)
 }
