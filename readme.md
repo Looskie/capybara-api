@@ -11,18 +11,45 @@ Note:
 
 
 ### Get Capybara
-Get random capybara and return as an image
+Get random capy and return as an image
 ```
 GET /v1/capybara
 ```
 
-Get random capybara and return as JSON
+Get random capy and return as JSON
 ```
 GET /v1/capybara?json=true
 ```
 
+### Get Capybara by image index/ID
+Get capy by image index/ID as an image
+```
+GET /v1/capybara/:index
+```
+
+Get capy by image index/ID as json
+```
+GET /v1/capybara/:index?json=true
+```
+
+
 ### Get Capybaras
-Get a bunch of capybaras
+Get a bunch of capys
 ```
 GET /v1/capybaras
+```
+
+Get a bunch of capys from index
+```
+GET /v1/capybaras?from=index
+```
+
+Get a bunch of capys but to a certain limit
+```
+GET /v1/capybaras?take=limit
+```
+
+Or combine both!
+```
+GET /v1/capybaras?take=limit&from=index
 ```

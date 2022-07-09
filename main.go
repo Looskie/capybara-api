@@ -12,6 +12,14 @@ func main() {
 	godotenv.Load()
 
 	app := fiber.New()
+	app.Use(recover.New(recover.Config{
+		Next:             nil,
+		EnableStackTrace: true,
+	}))
+
+	app.Use(logger.New(logger.Config{
+		Format: "${time} |   ${cyan}${status} ${reset}|   ${latency} | ${ip} on ${cyan}${ua} ${reset}| ${cyan}${method} ${reset}${path} \n",
+	}))
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.JSON(v1.Response{
@@ -31,15 +39,6 @@ func main() {
 	v1Group.Get("/capybaras", v1.GetCapybaras)
 	v1Group.Get("/capybara", v1.GetCapybara)
 	v1Group.Get("/capybara/:index", v1.GetCapybaraByIndex)
-
-	app.Use(recover.New(recover.Config{
-		Next:             nil,
-		EnableStackTrace: true,
-	}))
-
-	app.Use(logger.New(logger.Config{
-		Format: "${time} |   ${cyan}${status} ${reset}|   ${latency} | ${ip} on ${cyan}${ua} ${reset}| ${cyan}${method} ${reset}${path} \n",
-	}))
 
 	app.Listen(":3000")
 }
