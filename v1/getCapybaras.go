@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"image"
 	_ "image/jpeg"
+	"math/rand"
 	"os"
 	"strconv"
 
@@ -13,6 +14,7 @@ import (
 func GetCapybaras(c *fiber.Ctx) error {
 	var from = c.Query("from")
 	var take = c.Query("take")
+	var random = c.Query("random")
 
 	if len(from) == 0 {
 		from = "1"
@@ -40,7 +42,14 @@ func GetCapybaras(c *fiber.Ctx) error {
 
 	var photos []ImageStruct
 	for i := 0 + parsedFrom; i < parsedTake+parsedFrom && i < NUMBER_OF_IMAGES; i++ {
-		file, err := os.Open("./capys/capy" + fmt.Sprint(i) + ".jpg")
+
+		/* if user wants random index */
+		var index = i
+		if random == "true" {
+			index = rand.Intn(NUMBER_OF_IMAGES-parsedFrom) + parsedFrom
+		}
+
+		file, err := os.Open("./capys/capy" + fmt.Sprint(index) + ".jpg")
 
 		if err != nil {
 			println(err.Error())
@@ -53,14 +62,13 @@ func GetCapybaras(c *fiber.Ctx) error {
 		}
 
 		photos = append(photos, ImageStruct{
-			URL:    c.BaseURL() + "/v1/capybara/" + fmt.Sprint(i),
-			Index:  i,
+			URL:    c.BaseURL() + "/v1/capybara/" + fmt.Sprint(index),
+			Index:  index,
 			Width:  image.Width,
 			Height: image.Height,
 		})
 
 		defer file.Close()
-
 	}
 
 	return c.JSON(Response{
