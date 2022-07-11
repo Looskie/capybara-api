@@ -62,5 +62,11 @@ func main() {
 	v1Group.Get("/capybara", v1.GetCapybara)
 	v1Group.Get("/capybara/:index", v1.GetCapybaraByIndex)
 
-	log.Fatal(app.Listen(":" + os.Getenv("PORT")))
+	var port = os.Getenv("PORT")
+
+	if len(port) == 0 {
+		port = "3000"
+	}
+
+	log.Fatal(app.Listen(":" + port))
 }
