@@ -12,7 +12,7 @@ type Response struct {
 
 type ImageStruct struct {
 	URL    string `json:"url"`
-	Index  int `json:"index"`
+	Index  int    `json:"index"`
 	Width  int    `json:"width"`
 	Height int    `json:"height"`
 }

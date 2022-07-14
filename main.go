@@ -61,6 +61,8 @@ func main() {
 	v1Group.Get("/capybaras", v1.GetCapybaras)
 	v1Group.Get("/capybara", v1.GetCapybara)
 	v1Group.Get("/capybara/:index", v1.GetCapybaraByIndex)
+	v1Group.Get("/capyoftheday", v1.GetCapybaraOfTheDay)
+	v1Group.Get("/capyhour", v1.GetCapyHour)
 
 	var port = os.Getenv("PORT")
 
