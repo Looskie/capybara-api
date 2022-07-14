@@ -36,7 +36,7 @@ func main() {
 		Max:        200,
 		Expiration: 1 * time.Minute,
 		LimitReached: func(c *fiber.Ctx) error {
-			return c.JSON(v1.Response{
+			return c.Status(429).JSON(v1.Response{
 				Success: false,
 				Message: "You are being rate limited",
 			})
