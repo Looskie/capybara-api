@@ -16,6 +16,8 @@ func GetCapybara(c *fiber.Ctx) error {
 
 	bytes, err := ioutil.ReadFile("capys/capy" + fmt.Sprint(randomIndex) + ".jpg")
 
+	c.Set("X-Capybara-Index", fmt.Sprint(randomIndex))
+
 	if err != nil {
 		println("error while reading capy photo", err.Error())
 		if wantsJSON == "true" {

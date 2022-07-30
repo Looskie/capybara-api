@@ -21,6 +21,8 @@ func GetCapybaraByIndex(c *fiber.Ctx) error {
 		})
 	}
 
+	c.Set("X-Capybara-Index", fmt.Sprint(index))
+
 	if wantsJSON == "true" {
 		file, err := os.Open("./capys/capy" + fmt.Sprint(index) + ".jpg")
 
@@ -37,9 +39,9 @@ func GetCapybaraByIndex(c *fiber.Ctx) error {
 		return c.JSON(Response{
 			Success: true,
 			Data: ImageStruct{
-				URL:   c.BaseURL() + "/v1/capybara/" + index,
-				Index: parsedIndex,
-				Width: image.Width,
+				URL:    c.BaseURL() + "/v1/capybara/" + index,
+				Index:  parsedIndex,
+				Width:  image.Width,
 				Height: image.Height,
 			},
 		})
