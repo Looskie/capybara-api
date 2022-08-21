@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
+	. "github.com/looskie/capybara-api/utils"
 )
 
 func GetCapybaraByIndex(c *fiber.Ctx) error {

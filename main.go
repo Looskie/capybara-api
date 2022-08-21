@@ -11,13 +11,17 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/joho/godotenv"
+	"github.com/looskie/capybara-api/utils"
 	v1 "github.com/looskie/capybara-api/v1"
 )
 
 func main() {
 	godotenv.Load()
 
-	app := fiber.New()
+	capyImages, _ := os.ReadDir("capys")
+	utils.NUMBER_OF_IMAGES = len(capyImages)
+
+	app := fiber.New(fiber.Config{})
 	app.Use(recover.New(recover.Config{
 		Next:             nil,
 		EnableStackTrace: true,
@@ -36,7 +40,7 @@ func main() {
 		Max:        200,
 		Expiration: 1 * time.Minute,
 		LimitReached: func(c *fiber.Ctx) error {
-			return c.Status(429).JSON(v1.Response{
+			return c.Status(429).JSON(utils.Response{
 				Success: false,
 				Message: "You are being rate limited",
 			})
@@ -44,7 +48,7 @@ func main() {
 	}))
 
 	app.Get("/", func(c *fiber.Ctx) error {
-		return c.JSON(v1.Response{
+		return c.JSON(utils.Response{
 			Success: true,
 			Message: "ok you pull up",
 		})
@@ -52,7 +56,7 @@ func main() {
 
 	v1Group := app.Group("/v1")
 	v1Group.Get("/", func(c *fiber.Ctx) error {
-		return c.JSON(v1.Response{
+		return c.JSON(utils.Response{
 			Success: true,
 			Message: "welcome to v1 of capybara heaven",
 		})

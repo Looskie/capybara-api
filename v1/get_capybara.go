@@ -5,23 +5,18 @@ import (
 	"image"
 	"io/ioutil"
 	"os"
-	"time"
 
 	"github.com/gofiber/fiber/v2"
+	. "github.com/looskie/capybara-api/utils"
 )
 
-func GetCapyHour(c *fiber.Ctx) error {
+func GetCapybara(c *fiber.Ctx) error {
 	var wantsJSON = c.Query("json")
+	randomIndex := GetRandomIndex()
 
-	var date = time.Now()
-	var hour = date.Hour()
-	var day = date.Day()
+	bytes, err := ioutil.ReadFile("./capys/capy" + fmt.Sprint(randomIndex) + ".jpg")
 
-	// 12 is 0 bruv
-	var index = (hour + 1) + day
-	bytes, err := ioutil.ReadFile("capys/capy" + fmt.Sprint(index) + ".jpg")
-
-	c.Set("X-Capybara-Index", fmt.Sprint(index))
+	c.Set("X-Capybara-Index", fmt.Sprint(randomIndex))
 
 	if err != nil {
 		println("error while reading capy photo", err.Error())
@@ -36,7 +31,7 @@ func GetCapyHour(c *fiber.Ctx) error {
 	}
 
 	if wantsJSON == "true" {
-		file, err := os.Open("./capys/capy" + fmt.Sprint(index) + ".jpg")
+		file, err := os.Open("./capys/capy" + fmt.Sprint(randomIndex) + ".jpg")
 
 		if err != nil {
 			println(err.Error())
@@ -51,8 +46,8 @@ func GetCapyHour(c *fiber.Ctx) error {
 		return c.JSON(Response{
 			Success: true,
 			Data: ImageStruct{
-				URL:    c.BaseURL() + "/v1/capybara/" + fmt.Sprint(index),
-				Index:  index,
+				URL:    c.BaseURL() + "/v1/capybara/" + fmt.Sprint(randomIndex),
+				Index:  randomIndex,
 				Width:  image.Width,
 				Height: image.Height,
 			},

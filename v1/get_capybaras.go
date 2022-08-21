@@ -9,6 +9,7 @@ import (
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
+	. "github.com/looskie/capybara-api/utils"
 )
 
 func GetCapybaras(c *fiber.Ctx) error {

@@ -8,13 +8,18 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	. "github.com/looskie/capybara-api/utils"
 )
 
-func GetCapybaraOfTheDay(c *fiber.Ctx) error {
+func GetCapyHour(c *fiber.Ctx) error {
 	var wantsJSON = c.Query("json")
-	var _, month, day = time.Now().Date()
-	var index = int(month) + day
 
+	var date = time.Now()
+	var hour = date.Hour()
+	var day = date.Day()
+
+	// 12 is 0 bruv
+	var index = (hour + 1) + day
 	bytes, err := ioutil.ReadFile("capys/capy" + fmt.Sprint(index) + ".jpg")
 
 	c.Set("X-Capybara-Index", fmt.Sprint(index))

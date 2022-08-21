@@ -1,7 +1,7 @@
-package v1
+package utils
 
-const (
-	NUMBER_OF_IMAGES = 738
+var (
+	NUMBER_OF_IMAGES int
 )
 
 type Response struct {
