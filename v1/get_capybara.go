@@ -43,6 +43,8 @@ func GetCapybara(c *fiber.Ctx) error {
 			println(err.Error())
 		}
 
+		defer file.Close()
+
 		return c.JSON(Response{
 			Success: true,
 			Data: ImageStruct{
