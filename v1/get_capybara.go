@@ -37,13 +37,13 @@ func GetCapybara(c *fiber.Ctx) error {
 			println(err.Error())
 		}
 
+		defer file.Close()
+
 		image, _, err := image.DecodeConfig(file)
 
 		if err != nil {
 			println(err.Error())
 		}
-
-		defer file.Close()
 
 		return c.JSON(Response{
 			Success: true,

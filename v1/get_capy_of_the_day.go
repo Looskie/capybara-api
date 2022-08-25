@@ -39,6 +39,8 @@ func GetCapybaraOfTheDay(c *fiber.Ctx) error {
 			println(err.Error())
 		}
 
+		defer file.Close()
+
 		image, _, err := image.DecodeConfig(file)
 
 		if err != nil {
