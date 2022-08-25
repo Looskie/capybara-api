@@ -69,7 +69,7 @@ func GetCapybaras(c *fiber.Ctx) error {
 			Height: image.Height,
 		})
 
-		defer file.Close()
+		file.Close()
 	}
 
 	return c.JSON(Response{
