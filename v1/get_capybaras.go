@@ -12,6 +12,17 @@ import (
 	. "github.com/looskie/capybara-api/utils"
 )
 
+/*
+To the left [To the left
+To the right [To the right
+Find your ride and put that whip in drive and do the FENDI Slide
+Now show me how you slide [That boy is being hunted
+To the left [To the left
+To the right [To the right
+Find your ride, now put that whip in drive
+And do the FENDI Slide, now show me how you slide
+*/
+
 func GetCapybaras(c *fiber.Ctx) error {
 	var from = c.Query("from")
 	var take = c.Query("take")
