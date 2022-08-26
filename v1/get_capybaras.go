@@ -31,6 +31,10 @@ If I really want it then I bought it [Yeah, yeah
 She so ? when she saw me [She did
 Cuz' I FENDI slide [Slide
 Through the party [I slid
+I don't know your man but he knows me [Ha, ha
+When you gettin' money, you don't get lonely [I am never lonely
+Girl, you working and I really like that [I do
+You bout' to make me miss my flight back
 */
 
 func GetCapybaras(c *fiber.Ctx) error {
