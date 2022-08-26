@@ -26,6 +26,11 @@ I'm outside your crib, jump inside
 Heard this party jumping, we gon' slide
 Straight to the front of the line
 They just happy that we arrived
+I'm the type to finish what I started [Yeah, yeah
+If I really want it then I bought it [Yeah, yeah
+She so ? when she saw me [She did
+Cuz' I FENDI slide [Slide
+Through the party [I slid
 */
 
 func GetCapybaras(c *fiber.Ctx) error {
