@@ -50,7 +50,7 @@ func main() {
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.JSON(utils.Response{
 			Success: true,
-			Message: "ok you pull up",
+			Message: "ok you pull up (Powered by hop.io)",
 		})
 	})
 
@@ -58,7 +58,7 @@ func main() {
 	v1Group.Get("/", func(c *fiber.Ctx) error {
 		return c.JSON(utils.Response{
 			Success: true,
-			Message: "welcome to v1 of capybara heaven",
+			Message: "welcome to v1 of capybara heaven (Powered by hop.io)",
 		})
 	})
 
