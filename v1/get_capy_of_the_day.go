@@ -8,11 +8,11 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
-	. "github.com/looskie/capybara-api/utils"
+	"github.com/looskie/capybara-api/utils"
 )
 
 func GetCapybaraOfTheDay(c *fiber.Ctx) error {
-	var wantsJSON = c.Query("json")
+	var wantsJSON = utils.WantsJSON(c)
 	var _, month, day = time.Now().Date()
 	var index = int(month) + day
 
@@ -22,8 +22,8 @@ func GetCapybaraOfTheDay(c *fiber.Ctx) error {
 
 	if err != nil {
 		println("error while reading capy photo", err.Error())
-		if wantsJSON == "true" {
-			return c.Status(500).JSON(Response{
+		if wantsJSON {
+			return c.Status(500).JSON(utils.Response{
 				Success: false,
 				Message: "An error occurred whilst fetching file",
 			})
@@ -32,7 +32,7 @@ func GetCapybaraOfTheDay(c *fiber.Ctx) error {
 		return c.SendStatus(500)
 	}
 
-	if wantsJSON == "true" {
+	if wantsJSON {
 		file, err := os.Open("./capys/capy" + fmt.Sprint(index) + ".jpg")
 
 		if err != nil {
@@ -47,9 +47,9 @@ func GetCapybaraOfTheDay(c *fiber.Ctx) error {
 			println(err.Error())
 		}
 
-		return c.JSON(Response{
+		return c.JSON(utils.Response{
 			Success: true,
-			Data: ImageStruct{
+			Data: utils.ImageStruct{
 				URL:    c.BaseURL() + "/v1/capybara/" + fmt.Sprint(index),
 				Index:  index,
 				Width:  image.Width,

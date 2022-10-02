@@ -9,7 +9,7 @@ import (
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
-	. "github.com/looskie/capybara-api/utils"
+	"github.com/looskie/capybara-api/utils"
 )
 
 func GetCapybaras(c *fiber.Ctx) error {
@@ -27,7 +27,7 @@ func GetCapybaras(c *fiber.Ctx) error {
 
 	parsedTake, err := strconv.Atoi(take)
 	if err != nil {
-		return c.Status(500).JSON(Response{
+		return c.Status(500).JSON(utils.Response{
 			Success: false,
 			Message: err.Error(),
 		})
@@ -35,19 +35,19 @@ func GetCapybaras(c *fiber.Ctx) error {
 
 	parsedFrom, err := strconv.Atoi(from)
 	if err != nil {
-		return c.Status(500).JSON(Response{
+		return c.Status(500).JSON(utils.Response{
 			Success: false,
 			Message: err.Error(),
 		})
 	}
 
-	var photos []ImageStruct
-	for i := 0 + parsedFrom; i < parsedTake+parsedFrom && i < NUMBER_OF_IMAGES; i++ {
+	var photos []utils.ImageStruct
+	for i := 0 + parsedFrom; i < parsedTake+parsedFrom && i < utils.NUMBER_OF_IMAGES; i++ {
 
 		/* if user wants random index */
 		var index = i
 		if random == "true" {
-			index = rand.Intn(NUMBER_OF_IMAGES-parsedFrom) + parsedFrom
+			index = rand.Intn(utils.NUMBER_OF_IMAGES-parsedFrom) + parsedFrom
 		}
 
 		file, err := os.Open("./capys/capy" + fmt.Sprint(index) + ".jpg")
@@ -62,7 +62,7 @@ func GetCapybaras(c *fiber.Ctx) error {
 			println(err.Error())
 		}
 
-		photos = append(photos, ImageStruct{
+		photos = append(photos, utils.ImageStruct{
 			URL:    c.BaseURL() + "/v1/capybara/" + fmt.Sprint(index),
 			Index:  index,
 			Width:  image.Width,
@@ -72,7 +72,7 @@ func GetCapybaras(c *fiber.Ctx) error {
 		file.Close()
 	}
 
-	return c.JSON(Response{
+	return c.JSON(utils.Response{
 		Success: true,
 		Data:    photos,
 	})
