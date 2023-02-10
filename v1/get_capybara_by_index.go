@@ -42,7 +42,7 @@ func GetCapybaraByIndex(c *fiber.Ctx) error {
 		return c.JSON(utils.Response{
 			Success: true,
 			Data: utils.ImageStruct{
-				URL:    c.BaseURL() + "/v1/capybara/" + index,
+				URL:    utils.BaseURL(c) + "/v1/capybara/" + index,
 				Index:  parsedIndex,
 				Width:  image.Width,
 				Height: image.Height,

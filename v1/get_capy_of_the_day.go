@@ -50,7 +50,7 @@ func GetCapybaraOfTheDay(c *fiber.Ctx) error {
 		return c.JSON(utils.Response{
 			Success: true,
 			Data: utils.ImageStruct{
-				URL:    c.BaseURL() + "/v1/capybara/" + fmt.Sprint(index),
+				URL:    utils.BaseURL(c) + "/v1/capybara/" + fmt.Sprint(index),
 				Index:  index,
 				Width:  image.Width,
 				Height: image.Height,

@@ -63,7 +63,7 @@ func GetCapybaras(c *fiber.Ctx) error {
 		}
 
 		photos = append(photos, utils.ImageStruct{
-			URL:    c.BaseURL() + "/v1/capybara/" + fmt.Sprint(index),
+			URL:    utils.BaseURL(c) + "/v1/capybara/" + fmt.Sprint(index),
 			Index:  index,
 			Width:  image.Width,
 			Height: image.Height,
