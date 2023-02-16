@@ -46,6 +46,7 @@ func GetCapybaraByIndex(c *fiber.Ctx) error {
 				Index:  parsedIndex,
 				Width:  image.Width,
 				Height: image.Height,
+				Alt:    utils.GetAlt(index),
 			},
 		})
 	}

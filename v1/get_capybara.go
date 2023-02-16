@@ -52,6 +52,7 @@ func GetCapybara(c *fiber.Ctx) error {
 				Index:  randomIndex,
 				Width:  image.Width,
 				Height: image.Height,
+				Alt:    utils.GetAlti(randomIndex),
 			},
 		})
 	}
