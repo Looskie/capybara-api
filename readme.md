@@ -8,4 +8,4 @@ Documentation can be located [here]("https://capy.lol#documentation")
 
 Note: 
 - API Base URL is `https://api.capy.lol`
-- 200 requests a minute
+- 500 requests/30s
