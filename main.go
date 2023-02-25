@@ -21,7 +21,10 @@ func main() {
 	capyImages, _ := os.ReadDir("capys")
 	utils.NUMBER_OF_IMAGES = len(capyImages)
 
-	app := fiber.New(fiber.Config{})
+	app := fiber.New(fiber.Config{
+		EnableTrustedProxyCheck: true,
+		TrustedProxies: 				[]string{"10.50.0.0/24"},
+	})
 	app.Use(recover.New(recover.Config{
 		Next:             nil,
 		EnableStackTrace: true,
