@@ -23,7 +23,7 @@ func main() {
 
 	app := fiber.New(fiber.Config{
 		EnableTrustedProxyCheck: true,
-		TrustedProxies: 				[]string{"10.50.0.0/24"},
+		TrustedProxies:          []string{"10.50.0.0/24"},
 	})
 	app.Use(recover.New(recover.Config{
 		Next:             nil,
@@ -47,6 +47,9 @@ func main() {
 				Success: false,
 				Message: "You are being rate limited",
 			})
+		},
+		Key: func(c *fiber.Ctx) string {
+			return c.GetReqHeaders()["X-Forwarded-For"]
 		},
 	}))
 
