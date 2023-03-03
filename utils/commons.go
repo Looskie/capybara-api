@@ -15,4 +15,5 @@ type ImageStruct struct {
 	Index  int    `json:"index"`
 	Width  int    `json:"width"`
 	Height int    `json:"height"`
+        Alt    string `json:"alt"`
 }

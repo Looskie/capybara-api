@@ -54,6 +54,7 @@ func GetCapybaraOfTheDay(c *fiber.Ctx) error {
 				Index:  index,
 				Width:  image.Width,
 				Height: image.Height,
+				Alt:    utils.GetAlti(index),
 			},
 		})
 	}
