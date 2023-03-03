@@ -30,7 +30,6 @@ func main() {
 		TrustedProxies:          []string{"10.50.0.0/24"},
 	})
 
-	app := fiber.New(fiber.Config{})
 	app.Use(recover.New(recover.Config{
 		Next:             nil,
 		EnableStackTrace: true,
