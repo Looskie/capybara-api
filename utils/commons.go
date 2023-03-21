@@ -10,10 +10,14 @@ type Response struct {
 	Data    interface{} `json:"data,omitempty"`
 }
 
+type FactStruct struct {
+	Fact string `json:"fact"`
+}
+
 type ImageStruct struct {
 	URL    string `json:"url"`
 	Index  int    `json:"index"`
 	Width  int    `json:"width"`
 	Height int    `json:"height"`
-        Alt    string `json:"alt"`
+	Alt    string `json:"alt"`
 }

@@ -80,6 +80,11 @@ func main() {
 	v1Group.Get("/capyhour", v1.GetCapyHour)
 	v1Group.Get("/cnrad", v1.GetConradsBirthday)
 
+	// Capybara facts
+
+	v1Group.Get("/fact", v1.GetCapyFact)
+	v1Group.Get("/facts", v1.GetCapyFacts)
+
 	var port = os.Getenv("PORT")
 
 	if len(port) == 0 {
