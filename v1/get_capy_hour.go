@@ -5,7 +5,6 @@ import (
 	"image"
 	"io/ioutil"
 	"os"
-	"time"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/looskie/capybara-api/utils"
@@ -14,12 +13,12 @@ import (
 func GetCapyHour(c *fiber.Ctx) error {
 	var wantsJSON = utils.WantsJSON(c)
 
-	var date = time.Now()
-	var hour = date.Hour()
-	var day = date.Day()
+	// sets seed for this hour
+	utils.SetSeed("hour")
 
-	// 12 is 0 bruv
-	var index = (hour + 1) + day
+	// get random index
+	var index = utils.GetIndex()
+
 	bytes, err := ioutil.ReadFile("capys/capy" + fmt.Sprint(index) + ".jpg")
 
 	c.Set("X-Capybara-Index", fmt.Sprint(index))

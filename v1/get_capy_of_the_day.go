@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"image"
 	"io/ioutil"
+	"strconvert"
+	"math/rand"
 	"os"
 	"time"
 
@@ -13,8 +15,11 @@ import (
 
 func GetCapybaraOfTheDay(c *fiber.Ctx) error {
 	var wantsJSON = utils.WantsJSON(c)
-	var _, month, day = time.Now().Date()
-	var index = int(month) + day
+	
+	// sets seed for this day
+	utils.SetSeed("daily")
+	// set index
+	var index = utils.GetIndex()
 
 	bytes, err := ioutil.ReadFile("capys/capy" + fmt.Sprint(index) + ".jpg")
 
