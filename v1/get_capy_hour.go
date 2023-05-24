@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"image"
 	"io/ioutil"
+	"strconvert"
+	"math/rand"
 	"os"
 	"time"
 
@@ -14,12 +16,25 @@ import (
 func GetCapyHour(c *fiber.Ctx) error {
 	var wantsJSON = utils.WantsJSON(c)
 
+	// sets seed for this hour
 	var date = time.Now()
 	var hour = date.Hour()
 	var day = date.Day()
+	var month = strconv.Itoa(int(date.Month()))
+	var year = strconv.Itoa(date.Year())
+	var joined = year + month + day + hour
+	seed, err := strconv.Atoi(joined)
+	if err != nil {
+		println(err.Error())
+	}
+	rand.Seed(int64(seed))
 
-	// 12 is 0 bruv
-	var index = (hour + 1) + day
+	// find boundary of largest number rand should generate
+	files,_ := ioutil.ReadDir("capys/")
+    var max_rand = len(files)
+
+	// set index
+	var index = rand.Intn(max_rand) + 1
 	bytes, err := ioutil.ReadFile("capys/capy" + fmt.Sprint(index) + ".jpg")
 
 	c.Set("X-Capybara-Index", fmt.Sprint(index))
