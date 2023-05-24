@@ -4,10 +4,7 @@ import (
 	"fmt"
 	"image"
 	"io/ioutil"
-	"strconvert"
-	"math/rand"
 	"os"
-	"time"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/looskie/capybara-api/utils"

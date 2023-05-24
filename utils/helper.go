@@ -1,8 +1,7 @@
 package utils
 
 import (
-	"fmt"
-	"strconvert"
+	"strconv"
 	"time"
 	"math/rand"
 	"io/ioutil"
@@ -52,7 +51,7 @@ func SetSeed(t string) {
 
 func GetIndex() int {
 	files, _ := ioutil.ReadDir("capys/")
-    	var max_rand = len(files)
+	var max_rand = len(files)
 	// set index
 	var index = rand.Intn(max_rand) + 1
 	return index
