@@ -90,6 +90,6 @@ var (
 		"They are highly adaptable to temperature extremes and can thrive in both hot and cold environments.",
 		"Capybaras have a thick layer of fat under their skin that acts as insulation, helping them regulate their body temperature in different environments.",
 		"They are excellent at camouflaging themselves in their surroundings, blending in with vegetation to avoid detection by predators.",
-		"Capybaras have a well-developed memory and can remember the location of food sources and safe areas."
+		"Capybaras have a well-developed memory and can remember the location of food sources and safe areas.",
 	}
 )
