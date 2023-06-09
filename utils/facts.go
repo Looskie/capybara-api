@@ -75,5 +75,21 @@ var (
 		"They have a strong maternal instinct, and mothers will defend their young fiercely against any potential threats.",
 		"Capybaras have a wide range of facial expressions, including raising their eyebrows and flattening their ears to communicate different emotions.",
 		"They have a highly developed sense of touch in their snout and lips, which helps them identify and select their food.",
+		"Capybaras belong to the Caviidae family and are closely related to guinea pigs and chinchillas.",
+		"They have an impressive size and can reach a length of up to 1.3 meters (4.3 feet) and weigh about 50 to 65 kilograms (110 to 143 pounds)",
+		"The fur of capybaras is dense and water-resistant, helping them stay warm in the water.",
+		"They have a long and slender body, which enables them to move through dense vegetation with ease.",
+		"Capybaras are highly social animals and live in groups called herds. These herds can range in size from a few individuals to over 100 members.",
+		"Within the herd, a dominant male, known as the alpha male, leads and protects the group.",
+		"Capybaras have a strong maternal instinct, and mothers will fiercely defend their young against any potential threats.",
+		"Capybaras have a tapetum lucidum, a reflective layer behind their retina, which enhances their night vision.",
+		"Capybaras have slightly flattened heads, which help them stay partially submerged in water while keeping their eyes, ears, and nostrils above the surface.",
+		"Capybaras are excellent swimmers and have been observed diving up to 5 meters (16 feet) deep.",
+		"Capybaras communicate through various vocalizations, including whistles, clicks, and chirps.",
+		"Capybaras have a highly developed sense of hearing and can detect low-frequency sounds.",
+		"They are highly adaptable to temperature extremes and can thrive in both hot and cold environments.",
+		"Capybaras have a thick layer of fat under their skin that acts as insulation, helping them regulate their body temperature in different environments.",
+		"They are excellent at camouflaging themselves in their surroundings, blending in with vegetation to avoid detection by predators.",
+		"Capybaras have a well-developed memory and can remember the location of food sources and safe areas."
 	}
 )
