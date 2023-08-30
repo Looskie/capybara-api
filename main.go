@@ -53,7 +53,7 @@ func main() {
 				Message: "You are being rate limited",
 			})
 		},
-		Key: func(c *fiber.Ctx) string {
+		KeyGenerator: func(c *fiber.Ctx) string {
 			return c.GetReqHeaders()["X-Forwarded-For"]
 		},
 	}))
