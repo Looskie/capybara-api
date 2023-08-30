@@ -78,7 +78,7 @@ func main() {
 	v1Group.Get("/capybara/:index", v1.GetCapybaraByIndex)
 	v1Group.Get("/capyoftheday", v1.GetCapybaraOfTheDay)
 	v1Group.Get("/capyhour", v1.GetCapyHour)
-	v1Group.Get("/cnrad", v1.GetConradsBirthday)
+	v1Group.Get("/capyofthehour", v1.GetCapyHour) // Alias
 
 	// Capybara facts
 
