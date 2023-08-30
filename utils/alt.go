@@ -2,7 +2,7 @@ package utils
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"os"
 	"strconv"
 
 	"github.com/pkg/errors"
@@ -11,7 +11,7 @@ import (
 var capyAlts map[string]string
 
 func LoadCapyAlts(fn string) error {
-	content, err := ioutil.ReadFile(fn)
+	content, err := os.ReadFile(fn)
 	if err != nil {
 		return errors.Wrap(err, "reading alt.json")
 	}

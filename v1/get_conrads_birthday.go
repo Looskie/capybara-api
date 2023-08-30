@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"image"
 	_ "image/jpeg"
-	"io/ioutil"
 	"os"
 
 	"github.com/gofiber/fiber/v2"
@@ -15,7 +14,7 @@ func GetConradsBirthday(c *fiber.Ctx) error {
 	var wantsJSON = utils.WantsJSON(c)
 	randomIndex := utils.GetRandomIndex()
 
-	bytes, err := ioutil.ReadFile("./capys/cnrad.jpg")
+	bytes, err := os.ReadFile("./capys/cnrad.jpg")
 
 	c.Set("X-Capybara-Index", fmt.Sprint(randomIndex))
 

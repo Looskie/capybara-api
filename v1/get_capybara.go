@@ -3,7 +3,6 @@ package v1
 import (
 	"fmt"
 	"image"
-	"io/ioutil"
 	"os"
 
 	"github.com/gofiber/fiber/v2"
@@ -14,7 +13,7 @@ func GetCapybara(c *fiber.Ctx) error {
 	var wantsJSON = utils.WantsJSON(c)
 	randomIndex := utils.GetRandomIndex()
 
-	bytes, err := ioutil.ReadFile("./capys/capy" + fmt.Sprint(randomIndex) + ".jpg")
+	bytes, err := os.ReadFile("./capys/capy" + fmt.Sprint(randomIndex) + ".jpg")
 
 	c.Set("X-Capybara-Index", fmt.Sprint(randomIndex))
 

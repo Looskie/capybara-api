@@ -3,7 +3,6 @@ package v1
 import (
 	"fmt"
 	"image"
-	"io/ioutil"
 	"os"
 
 	"github.com/gofiber/fiber/v2"
@@ -19,7 +18,7 @@ func GetCapyHour(c *fiber.Ctx) error {
 	// get random index
 	var index = utils.GetIndex()
 
-	bytes, err := ioutil.ReadFile("capys/capy" + fmt.Sprint(index) + ".jpg")
+	bytes, err := os.ReadFile("capys/capy" + fmt.Sprint(index) + ".jpg")
 
 	c.Set("X-Capybara-Index", fmt.Sprint(index))
 

@@ -3,7 +3,6 @@ package v1
 import (
 	"fmt"
 	"image"
-	"io/ioutil"
 	"os"
 
 	"github.com/gofiber/fiber/v2"
@@ -12,13 +11,13 @@ import (
 
 func GetCapybaraOfTheDay(c *fiber.Ctx) error {
 	var wantsJSON = utils.WantsJSON(c)
-	
+
 	// sets seed for this day
 	utils.SetSeed("daily")
 	// set index
 	var index = utils.GetIndex()
 
-	bytes, err := ioutil.ReadFile("capys/capy" + fmt.Sprint(index) + ".jpg")
+	bytes, err := os.ReadFile("capys/capy" + fmt.Sprint(index) + ".jpg")
 
 	c.Set("X-Capybara-Index", fmt.Sprint(index))
 
