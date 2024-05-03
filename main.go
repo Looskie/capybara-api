@@ -54,14 +54,14 @@ func main() {
 			})
 		},
 		KeyGenerator: func(c *fiber.Ctx) string {
-			return c.GetReqHeaders()["X-Forwarded-For"]
+			return c.Get("X-Forwarded-For")
 		},
 	}))
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.JSON(utils.Response{
 			Success: true,
-			Message: "ok you pull up (Powered by hop.io)",
+			Message: "ok you pull up",
 		})
 	})
 
@@ -69,14 +69,15 @@ func main() {
 	v1Group.Get("/", func(c *fiber.Ctx) error {
 		return c.JSON(utils.Response{
 			Success: true,
-			Message: "welcome to v1 of capybara heaven (Powered by hop.io)",
+			Message: "welcome to v1 of capybara heaven",
 		})
 	})
 
 	v1Group.Get("/capybaras", v1.GetCapybaras)
 	v1Group.Get("/capybara", v1.GetCapybara)
 	v1Group.Get("/capybara/:index", v1.GetCapybaraByIndex)
-	v1Group.Get("/capyoftheday", v1.GetCapybaraOfTheDay)
+	v1Group.Get("/capyday", v1.GetCapybaraOfTheDay)
+	v1Group.Get("/capyoftheday", v1.GetCapybaraOfTheDay) // Alias
 	v1Group.Get("/capyhour", v1.GetCapyHour)
 	v1Group.Get("/capyofthehour", v1.GetCapyHour) // Alias
 
