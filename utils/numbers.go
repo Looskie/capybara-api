@@ -2,6 +2,7 @@ package utils
 
 import (
 	"math/rand"
+	"time"
 )
 
 func GetRandomIndex() int {
